@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
 import { ChevronLeft } from 'lucide-react'
+import SignIn from '@/components/ui/SignIn'
 
 type Props = {}
 
@@ -20,7 +21,7 @@ const page = (props: Props) => {
                     Home
                 </Link>
 
-                {/* <SignIn /> */}
+                <SignIn />
             </div>
         </div>
     )
