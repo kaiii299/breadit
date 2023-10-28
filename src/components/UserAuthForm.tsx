@@ -50,7 +50,3 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
 }
 
 export default UserAuthForm
-
-function toast(arg0: { title: string; description: string; variant: string }) {
-    throw new Error('Function not implemented.')
-}

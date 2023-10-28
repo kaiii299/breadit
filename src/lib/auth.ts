@@ -6,8 +6,6 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import GoogleProvider from 'next-auth/providers/google'
 import {nanoid} from 'nanoid'
 
-// TODO Change Database to parade state data
-
 export const authOptions: NextAuthOptions = {
     // Handle Prisma auth db
     adapter: PrismaAdapter(db),
@@ -26,25 +24,29 @@ export const authOptions: NextAuthOptions = {
     ],
     // Retrive current session values
     callbacks: {
-        async session({token, session}){
+        async session({token, session}: any){
+            
             if(token){
+                
                 session.user.id = token.id
                 session.user.name = token.name 
                 session.user.email = token.email 
-                session.user.image = token.picture 
+                session.user.image = token.image 
                 session.user.username = token.username 
-            }
+            }            
+            
             return session 
         },
 
         
         async jwt({token, user}) {
 
-            // Check if user in db , where email = email in token
+            // Check if user in db , where email = email in db
             const dbUser = await db.user.findFirst({
                 where:{
                     email: token.email,
                 }
+                
             })
 
             // If user is not in the db
@@ -64,7 +66,8 @@ export const authOptions: NextAuthOptions = {
                     }
                 })
             }
-
+            
+            // Else
             return {
                 id: dbUser.id,
                 name: dbUser.name,
@@ -72,6 +75,8 @@ export const authOptions: NextAuthOptions = {
                 image: dbUser.image,
                 username: dbUser.username,
             }
+
+            
         },
         redirect(){
             // Redirect to home page when loggin 

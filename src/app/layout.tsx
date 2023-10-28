@@ -1,5 +1,5 @@
 // import Navbar from '@/components/Navbar'
-import Navbar from '@/components/ui/Navbar'
+import Navbar from '@/components/Navbar'
 import { cn } from '@/lib/utils'
 import { Inter } from 'next/font/google'
 
