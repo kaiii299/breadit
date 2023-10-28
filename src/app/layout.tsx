@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { Inter } from 'next/font/google'
 
 import '@/styles/globals.css'
+import { Toaster } from '@/components/ui/Toaster'
 // import Providers from '@/components/Providers'
 // import { Toaster } from '@/components/ui/Toaster'
 
@@ -38,8 +39,8 @@ export default function RootLayout({
           @ts-expect-error Server Component
           {authModal}
 
-        </Providers>
-        <Toaster /> */}
+        </Providers> */}
+        <Toaster /> 
 
       </body>
     </html>

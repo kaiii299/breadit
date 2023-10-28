@@ -1,8 +1,11 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Hosted on PLANETSCALE
 
-// Authentication Files
+// 1)npx prisma db push
+// 2)npx prisma db generate
 
+//* Authentication Files
 generator client {
   provider = "prisma-client-js"
 }
@@ -45,6 +48,9 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+
+// Each username can only exist once
+  username String? @unique
 
   image    String?
   accounts Account[]
