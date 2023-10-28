@@ -71,7 +71,8 @@ model All_Users {
   // If regular won't be listed in side strength
   regular    Boolean
   ord_date   DateTime
-  admin Boolean 
+  admin Boolean
+  rank String 
 }
 
 // Db so that can add more platoon if needed
