@@ -49,10 +49,34 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
 
-// Each username can only exist once
+  // Each username can only exist once
   username String? @unique
 
   image    String?
   accounts Account[]
   sessions Session[]
+}
+
+// All users Data
+model All_Users {
+  // CIUD is collision unique identifier
+  id         String   @id @default(cuid())
+  name       String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  pes        String
+  platoon    Platoons @relation(fields: [platoonsId], references: [id])
+  status     Json?
+  platoonsId String
+  // If regular won't be listed in side strength
+  regular    Boolean
+  ord_date   DateTime
+  admin Boolean 
+}
+
+// Db so that can add more platoon if needed
+model Platoons {
+  id        String      @id @default(cuid())
+  platoon   String
+  All_Users All_Users[]
 }
