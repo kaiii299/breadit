@@ -1,7 +1,7 @@
 import React from 'react'
 import TableNav from './TableNav'
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './ui/accordion'
-import { TableHeader, TableRow, TableBody, TableCell, Table } from './ui/table'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './ui/Accordion'
+import { TableHeader, TableRow, TableBody, TableCell, Table } from './ui/Table'
 
 type Props = {}
 

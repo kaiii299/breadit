@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 
 import '@/styles/globals.css'
 import { Toaster } from '@/components/ui/Toaster'
+import Providers from '@/components/Providers'
 // import Providers from '@/components/Providers'
 // import { Toaster } from '@/components/ui/Toaster'
 
@@ -28,20 +29,16 @@ export default function RootLayout({
         inter.className
       )}>
       <body className='min-h-screen pt-12 bg-slate-50 antialiased'>
+        <Providers>
+        {/* @ts-expect-error Server Component */}
+        <Navbar/>
+ 
         <div className='container max-w-7xl mx-auto h-full pt-12'>
           {children}
         </div>
-        {/* @ts-expect-error Server Component */}
-        <Navbar/>
         
-        {/* <div className='container max-w-7xl mx-auto h-full pt-12'>
-          {children}
-        </div> */}
-        {/* <Providers>
-          @ts-expect-error Server Component
-          {authModal}
+        </Providers>
 
-        </Providers> */}
         <Toaster /> 
 
       </body>

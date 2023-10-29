@@ -67,12 +67,9 @@ model All_Users {
   pes        String
   platoon    Platoons @relation(fields: [platoonsId], references: [id])
   status     Json?
-  platoonsId String
-  // If regular won't be listed in side strength
-  regular    Boolean
-  ord_date   DateTime
-  admin Boolean
-  rank String 
+  platoonsId String 
+  email  String 
+  rank String
 }
 
 // Db so that can add more platoon if needed
