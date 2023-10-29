@@ -65,6 +65,7 @@ export const authOptions: NextAuthOptions = {
                         username: nanoid(10)
                     }
                 })
+                
             }
             
             // Else

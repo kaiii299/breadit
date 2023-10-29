@@ -1,0 +1,33 @@
+.croc {
+    position: absolute;
+    -webkit-animation: linear infinite;
+    -webkit-animation-name: run;
+    -webkit-animation-duration: 5s;
+    animation: run 7s linear infinite;
+  }
+
+@-webkit-keyframes run {
+    0% {
+      left: 0;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: 0;    
+    }
+  }
+
+  @keyframes run {
+    0% {
+      display: block;
+      left: -20%;
+    }
+    50% {
+      display: none;
+      visibility: hidden;
+    }
+    100%{
+      left: 130%;
+    }
+  }
