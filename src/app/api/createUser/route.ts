@@ -18,20 +18,20 @@ export async function POST(req: Request) {
         //  console.log(body);
          
          
-        const {name, email, pes, platoon, rank, included , username, status} = userValidators.parse(body)
+        const {name, email, pes, platoonId, rank, included , username, status} = userValidators.parse(body)
 
         // Check if user exisits
-        if(db.user){
-            const exisitingUserByEmail = await db.user.findUnique({
-                where:{
-                    email : email
-                }
-            });
+        // if(db.user){
+        //     const exisitingUserByEmail = await db.user.findUnique({
+        //         where:{
+        //             email : body.email
+        //         }
+        //     });
 
-            if(exisitingUserByEmail){
-                return NextResponse.json({user: null, message: "user already exist"}, {status:409})
-            }
-        }
+        //     if(exisitingUserByEmail){
+        //         return NextResponse.json({user: null, message: "user already exist"}, {status:409})
+        //     }
+        // }
 
         // Will not create another user
 
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
                 included : included,
                 pes : pes,
                 rank : rank,
-                platoonsId : platoon,
+                platoonsId : platoonId,
                 username : username,
                 status : status,
             }

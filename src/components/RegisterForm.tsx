@@ -6,7 +6,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { statusPayload } from '@/lib/validators/users'
 import React from 'react'
-import { cRanks } from '@/lib/constants'
+import { cPes, cRanks } from '@/lib/constants'
 import Loading from './Loading'
 
 type Props = {
@@ -20,7 +20,7 @@ type FormInputs = {
     name: string,
     email: string,
     pes: string,
-    platoon: string,
+    platoonId: string,
     rank: string,
 
     status: statusPayload,
@@ -52,13 +52,15 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
                 comments: ''
             },
 
-            data.username = '',
+            data.username = data.name,
 
             data.included = true,
 
             createUser(data)
 
-            console.log(data);
+            // console.log(data);
+            
+
     }
 
     const router = useRouter();
@@ -102,7 +104,7 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
                     </label>
 
                     {isLoadingTags ? <Loading /> :
-                        <select {...register('platoon')} className="block w-1/5 text-sm font-medium transition duration-75 border border-gray-800 rounded-lg shadow-sm h-9 focus:border-blue-600 focus:ring-1 focus:ring-inset focus:ring-blue-600 bg-none" >
+                        <select {...register('platoonId')} className="block w-1/5 text-sm font-medium transition duration-75 border border-gray-800 rounded-lg shadow-sm h-9 focus:border-blue-600 focus:ring-1 focus:ring-inset focus:ring-blue-600 bg-none" >
                             {platoonTags?.map((res: any, i: any) => {
                                 return (
                                     <option key={i} value={res.id}>{res.platoon}</option>
@@ -116,12 +118,14 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
                     <label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" >
                         PES Status
                     </label>
-                    <input
-                        className="w-full px-3 py-2 text-sm uppercase leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        type="text"
-                        placeholder="PES Status"
-                        {...register('pes')}
-                    />
+                    {/* Dropdown */}
+                    <select {...register('pes')} className="block w-1/5 text-sm font-medium transition duration-75 border border-gray-800 rounded-lg shadow-sm h-9 focus:border-blue-600 focus:ring-1 focus:ring-inset focus:ring-blue-600 bg-none" >
+                        {cPes.map((res: any, i: any) => {
+                            return (
+                                <option className='' key={i} value={res}>{res}</option>
+                            )
+                        })}
+                    </select>
                 </div>
             </div>
             <div className="mb-4">
@@ -152,7 +156,8 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
 
 
             <div className="mb-6 text-center flex justify-center">
-                <Button className='w-1/2 ' isLoading={isLoading} >Add user</Button>
+                <Button className='w-1/4' isLoading={isLoading} >Add user</Button>
+                <Button className='md:w-1/4 lg:w-1/2 ml-3' variant={'subtle'}><a href='/'>Cancle</a></Button>
             </div>
 
         </form>

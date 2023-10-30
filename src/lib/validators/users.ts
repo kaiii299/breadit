@@ -5,7 +5,7 @@ export const userValidators = z.object({
     name: z.string().min(3),
     rank: z.string(),
     pes: z.string(),
-    platoon: z.string(),
+    platoonId: z.string(),
     included: z.boolean(),
     username:z.string(),
     status: z.any(),
