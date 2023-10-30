@@ -1,42 +1,60 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { userValidators } from "@/lib/validators/users";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+    
     try {
-        const session = await getAuthSession()
 
-        if(!session?.user){
-            return new Response('Unauthorized', {status: 401})
-        }
+        // const session = await getAuthSession()
 
-        const body = await req.json()
-        const {name, email, pes, platoon, rank} = userValidators.parse(body)
+        // if(!session?.user){
+        //     return new Response('Unauthorized', {status: 401})
+        // }
+
+         const body = await req.json()
+
+        //  console.log(body);
+         
+         
+        const {name, email, pes, platoon, rank, included , username, status} = userValidators.parse(body)
 
         // Check if user exisits
+        if(db.user){
+            const exisitingUserByEmail = await db.user.findUnique({
+                where:{
+                    email : email
+                }
+            });
 
-        const userExist = await db.all_Users.findFirst({
-            where : {
-                name
+            if(exisitingUserByEmail){
+                return NextResponse.json({user: null, message: "user already exist"}, {status:409})
             }
-        })
-
-        if(userExist) {
-            return new Response('User already exists', {status: 409})
         }
 
-        const user = await db.all_Users.create({
+        // Will not create another user
+
+        const newUser = await db.user.create({
             data:{
-                name,
-                email,
-                pes,
-                platoon,
-                rank    
+                name : name,
+                email : email,
+                included : included,
+                pes : pes,
+                rank : rank,
+                platoonsId : platoon,
+                username : username,
+                status : status,
             }
         })
+        
+        return NextResponse.json(newUser , {status:200});
+        
+
 
     } catch (error){
-
+        return NextResponse.json({
+            message: `${error}`} , {status:500})
     }
 }
 

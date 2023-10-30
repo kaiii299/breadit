@@ -1,6 +1,6 @@
 // Hander auth logic
 
-import { NextAuthOptions, getServerSession } from "next-auth";
+import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { db } from "./db";
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import GoogleProvider from 'next-auth/providers/google'
@@ -24,6 +24,23 @@ export const authOptions: NextAuthOptions = {
     ],
     // Retrive current session values
     callbacks: {
+
+        // chenck if the user is sining in for the first time or not
+        // async signIn({user}: any ){
+        //     const existingUser = await db.user.findUnique({
+        //         where: {
+        //             email: user.email
+        //         }
+        //     })
+
+        //     // Brings the user to the register page
+        //     if(!existingUser){
+        //         return '/sign-up'
+        //     }
+
+        //     return true
+        // },
+
         async session({token, session}: any){
             
             if(token){
@@ -34,6 +51,8 @@ export const authOptions: NextAuthOptions = {
                 session.user.image = token.image 
                 session.user.username = token.username 
             }            
+            
+            console.log(session);
             
             return session 
         },
@@ -65,26 +84,28 @@ export const authOptions: NextAuthOptions = {
                         username: nanoid(10)
                     }
                 })
-                
             }
             
-            // Else
+            // Else create user
             return {
                 id: dbUser.id,
                 name: dbUser.name,
                 email: dbUser.email,
                 image: dbUser.image,
                 username: dbUser.username,
+                pes: dbUser.pes,
+                rank : dbUser.rank,
+                included : dbUser.included,
+                platoon: dbUser.platoonsId,
             }
 
             
         },
-        redirect(){
-            // Redirect to home page when loggin 
+        async redirect(){
             return '/'
         }
+        }
     }
-}
 
-// Helper 
+// // Helper 
 export const getAuthSession = () => getServerSession(authOptions)

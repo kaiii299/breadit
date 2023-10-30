@@ -3,7 +3,7 @@ import React from 'react'
 import flyingCroc from '../../public/FlyingCroc.json'
 import Lottie from "lottie-react";
 
-import '../styles/movment.css'
+import '../styles/movement.css'
 
 type Props = {}
 

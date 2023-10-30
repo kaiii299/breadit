@@ -33,6 +33,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -41,6 +42,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {
@@ -55,26 +58,24 @@ model User {
   image    String?
   accounts Account[]
   sessions Session[]
-}
 
-// All users Data
-model All_Users {
-  // CIUD is collision unique identifier
-  id         String   @id @default(cuid())
-  name       String   @unique
+  // Extra data
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   pes        String
   platoon    Platoons @relation(fields: [platoonsId], references: [id])
   status     Json?
-  platoonsId String 
-  email  String 
-  rank String
+  platoonsId String
+  rank       String
+
+  included Boolean
+
+  @@index([platoonsId])
 }
 
 // Db so that can add more platoon if needed
 model Platoons {
-  id        String      @id @default(cuid())
-  platoon   String
-  All_Users All_Users[]
+  id      String @id @default(cuid())
+  platoon String
+  user    User[]
 }

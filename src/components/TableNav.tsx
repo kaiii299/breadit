@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input } from './ui/Input'
+import { Input } from './ui/input'
 import { Icons } from './Icons'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/Dropdown-menu'
 import Link from 'next/link'
@@ -21,7 +21,7 @@ const TableNav = (props: Props) => {
 
                     <DropdownMenuContent className='bg-white align-end'>
                         <DropdownMenuItem>
-                            <Link href='/create-user' className={buttonVariants({variant:'ghost'})}>
+                            <Link href='/sign-up' className={buttonVariants({variant:'ghost'})}>
                                 Create new user
                             </Link>
                         </DropdownMenuItem>
