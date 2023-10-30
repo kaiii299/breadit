@@ -9,10 +9,8 @@ type Props = {}
 
 const TableNav = (props: Props) => {
     return (
-        <div className='flex justify-end top-0 inset-x-0 h-fit z-[10] py-2 '>
-            {/* <div className='w-1/3 '>
-                <Input type='text' placeholder='Search...' />
-            </div> */}
+        <div className='flex justify-between top-0 inset-x-0 h-fit z-[10] py-2 '>
+            <input type="text" placeholder="Type here" className="input input-ghost input-bordered w-1/3 max-w-xs" />
             <div>
                 <DropdownMenu>
                     <DropdownMenuTrigger>

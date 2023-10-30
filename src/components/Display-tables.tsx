@@ -30,15 +30,36 @@ const DisplayTables = ({ users }: Props) => {
                                 {
                                     users.map((res: any) => {
                                         // console.log(res);
-                                        
+
                                         return (
                                             <AccordionItem value={res.id}>
-                                                <AccordionTrigger><h1 className='uppercase font-bold'>{res.rank} {res.name} </h1>
+
+                                                <AccordionTrigger>
+
+                                                    <div >
+                                                        <div className='flex'>
+                                                            {/* <div className="px-3 w-max flex gap-2 items-center rounded-md bg-[#264b96] text-white">
+                                                                <span>{res.pes}</span>
+                                                            </div> */}
+                                                            <h1 className='font-bold uppercase '>{res.rank} {res.name}</h1>
+                                                        </div>
+                                                        <div className='mt-3'>
+                                                            <div className='flex'>
+                                                                <div className={res.status.status == 'In Camp' ?
+                                                                    'px-3 mr-3 w-max flex gap-2 items-center uppercase rounded-md bg-[#66aa8c] text-white ' :
+                                                                    'px-3 mr-3 w-max flex gap-2 items-center uppercase rounded-md bg-[#f04141] text-white '
+                                                                }>
+                                                                    <span className="block text-sm font-bold">{res.status.status}</span>
+                                                                </div>
+                                                                <span className={res.status.status =='In Camp' ? 'hidden': 'block'}>{`( ${res.status.start_date} - ${res.status.end_date} )`}</span> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                 </AccordionTrigger>
                                                 <AccordionContent>
                                                     <div>
-                                                        {res.status.status}
+
                                                     </div>
                                                 </AccordionContent>
                                             </AccordionItem>
