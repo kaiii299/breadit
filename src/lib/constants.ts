@@ -6,3 +6,5 @@ export const cPes = ['A', 'B1', 'B2' , 'B3' ,' B4' , 'C2' , 'C9', 'D', 'E1' , 'E
 
 
 export const cCompany = ['Alpha', 'Bravo']
+
+export const cStatus = ['In Camp', 'MA' , 'Off' , 'ATTC' , 'Leave', 'Others']

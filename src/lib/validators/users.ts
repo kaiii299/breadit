@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-export const userValidators = z.object({
+export const createUserValidators = z.object({
     email: z.string(),
     name: z.string().min(3),
     rank: z.string(),
@@ -11,7 +11,16 @@ export const userValidators = z.object({
     status: z.any(),
 })
 
-export type createUsersPayload = z.infer<typeof userValidators>
+
+export const updateStatusValidators = z.object({
+    id: z.string(),
+    status: z.any(),
+    comments: z.string(),
+    start_date: z.date(),
+    end_date: z.date(),
+})
+
+export type updateStatusValidators = z.infer<typeof updateStatusValidators>
 
 export const statusValidators = z.object({
     // Status type

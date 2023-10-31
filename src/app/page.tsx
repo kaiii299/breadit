@@ -1,6 +1,6 @@
 import DisplayTables from "@/components/Display-tables";
 import { db } from '@/lib/db'
-import { createUsersPayload } from "@/lib/validators/users";
+
 
 async function getUsers() {
   const res = await db.user.findMany({
@@ -14,6 +14,7 @@ async function getUsers() {
       name: true,
     }
   });
+  
   return res
 }
 

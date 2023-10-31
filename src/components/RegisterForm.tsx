@@ -2,12 +2,13 @@
 import { Button } from '@/components/ui/Button'
 import axios from 'axios'
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation} from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { statusPayload } from '@/lib/validators/users'
 import React from 'react'
 import { cPes, cRanks } from '@/lib/constants'
 import Loading from './Loading'
+import { useToast } from '@/hooks/use-toast'
 
 type Props = {
     platoonTags: string[]
@@ -62,18 +63,34 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
             
 
     }
+    
+    const { toast } = useToast()
 
     const router = useRouter();
+    
     // Mutation functon is any funciton that handle any data fetching using axios
     const { mutate: createUser, isLoading } = useMutation({
         mutationFn: (newUser: FormInputs) => {
             return axios.post('/api/createUser', newUser)
         },
-        onError: (error) => {
+        onError: (error: Error) => {
             console.error(error);
+
+            toast({
+                title: 'Error',
+                description: `${error.message}`,
+                variant: 'default',
+            })
 
         },
         onSuccess: () => {
+
+            toast({
+                title: 'Success',
+                description: 'User created',
+                variant: 'default',
+            })
+
             router.push('/')
         }
     })
@@ -157,7 +174,7 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
 
             <div className="mb-6 text-center flex justify-center">
                 <Button className='w-1/4' isLoading={isLoading} >Add user</Button>
-                <Button className='md:w-1/4 lg:w-1/2 ml-3' variant={'subtle'}><a href='/'>Cancle</a></Button>
+                <Button className='md:w-1/4 lg:w-1/2 ml-3' variant={'subtle'}><a href='/'>Cancel</a></Button>
             </div>
 
         </form>
