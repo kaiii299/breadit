@@ -18,6 +18,8 @@ import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import RichText from "./RichText";
+import useRichText from "./RichText";
 
 type FormInputs = {
     id: string;
@@ -33,25 +35,32 @@ type Props = {
 };
 
 const UpdateStatus = ({ statusProps, idProps }: Props) => {
-
+    
     const status = statusProps.status;
-    const comments = statusProps.comments;
-
+    const prevComments = statusProps.comments;
+    
     // Drop down option
     const [selectedOption, setSelectedOption] = useState(status);
-
+    
     // Form
     const { register, handleSubmit } = useForm<FormInputs>();
+    
+    // get rich text
+    const {richTextComments, richTextrender} = useRichText(prevComments);
 
     // Get date
-    const {render, date} = DatePickerWithRange()
+    const {render, date} = DatePickerWithRange(statusProps.start_date, statusProps.end_date)
 
     const onSubmit: SubmitHandler<FormInputs> = (data) => {
+
         // Default values
         data.status = selectedOption;
         data.start_date = date?.from
         data.end_date = date?.to
+        data.comments = richTextComments
 
+        // console.log(data);
+        
         updateUser(data)
     };
 
@@ -77,8 +86,8 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
         onSuccess: () => {
 
             toast({
-                title: 'Success',
-                description: 'Updated',
+                title: 'Status Updated 🐊',
+                description: '',
                 variant: 'default',
             })
 
@@ -86,7 +95,7 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
             router.refresh()
         }
     })
-    
+
 
     return (
         <form onSubmit={(e) => handleSubmit(onSubmit)(e)}>
@@ -120,13 +129,13 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
                     </div>
                 )}
             </div>
-            <div className="flex flex-col py-3 px-1">
+            <div className="flex flex-col py-3">
                 <label className="font-bold my-3">Notes</label>
-                <textarea {...register('comments')} className="w-full md:w-1/2 lg:w-3/4 py-2 px-2" cols={30} rows={5} value={comments}/>
+                {richTextrender}
             </div>
 
             <div>
-                <button className="bg-zinc-900 text-zinc-100 hover:bg-zinc-800 px-4 py-3 w-1/4 mt-3 active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors " type="submit">Save</button>
+                <button className="bg-zinc-900 text-zinc-100 hover:bg-zinc-800 px-4 py-3 w-1/4 active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors " type="submit">Save</button>
             </div>
         </form>
     );

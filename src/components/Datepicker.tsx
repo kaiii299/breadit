@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { addDays, format } from "date-fns"
+import { addDays, format, isValid, parseISO, parseJSON } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
 
@@ -14,12 +14,37 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DatePickerWithRange() {
+export function DatePickerWithRange(start_date: string, end_date: string) {
 
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 1),
-  })
+  function isDateValid(dateString: any) {
+    const parsedDate = new Date(dateString);
+
+    return !isNaN(parsedDate.getTime());
+  }
+
+  const [date, setDate] = React.useState<DateRange | any | undefined>(() => {
+
+    // Your initial JSON object (e.g., from an API or user input)
+    const initialDateObject = {
+      from: new Date(start_date),
+      to: new Date(end_date),
+    };    
+
+    // Check if both start date and end date are valid; if not, set them to current dates
+    if (isDateValid(initialDateObject.from) && isDateValid(initialDateObject.to)) {
+      return initialDateObject;
+
+    } 
+    
+    else {
+      
+      return {
+        from: new Date(),
+        to: addDays(new Date(), 1),
+      }; 
+    }
+  });
+  
 
   return {
     date,

@@ -1,4 +1,4 @@
-import DisplayTables from "@/components/Display-tables";
+import DisplayTables from "@/components/DisplayTables";
 import { db } from '@/lib/db'
 
 

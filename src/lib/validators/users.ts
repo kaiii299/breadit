@@ -16,8 +16,8 @@ export const updateStatusValidators = z.object({
     id: z.string(),
     status: z.any(),
     comments: z.string(),
-    start_date: z.date(),
-    end_date: z.date(),
+    start_date: z.string(),
+    end_date: z.string(),
 })
 
 export type updateStatusValidators = z.infer<typeof updateStatusValidators>
