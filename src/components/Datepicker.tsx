@@ -17,6 +17,7 @@ import {
 export function DatePickerWithRange(start_date: string, end_date: string) {
 
   function isDateValid(dateString: any) {
+
     const parsedDate = new Date(dateString);
 
     return !isNaN(parsedDate.getTime());
@@ -28,23 +29,30 @@ export function DatePickerWithRange(start_date: string, end_date: string) {
     const initialDateObject = {
       from: new Date(start_date),
       to: new Date(end_date),
-    };    
+    };
+
+    console.log(initialDateObject);
+
 
     // Check if both start date and end date are valid; if not, set them to current dates
-    if (isDateValid(initialDateObject.from) && isDateValid(initialDateObject.to)) {
+    if (isDateValid(initialDateObject.from) && isDateValid(initialDateObject.to &&
+
+      initialDateObject.from != null && initialDateObject.to != null)) {
+
       return initialDateObject;
 
-    } 
-    
+    }
+
     else {
-      
+
       return {
+        // Give todays date + 1
         from: new Date(),
         to: addDays(new Date(), 1),
-      }; 
+      };
     }
   });
-  
+
 
   return {
     date,

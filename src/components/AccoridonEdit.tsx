@@ -14,6 +14,8 @@ const AccoridonEdit = ({users}: Props) => {
             {
                 users.map((res: any) => {
 
+                    // Format date that users is not in camp
+                    
                     const start_date = res.status.start_date
                     const end_date = res.status.end_date
 
@@ -45,26 +47,31 @@ const AccoridonEdit = ({users}: Props) => {
 
                                 <div >
                                     <div className='flex'>
-                                        <h1 className='font-bold uppercase '>{res.rank} {res.name}</h1>
+                                        <h1 className='font-bold uppercase text-lg '>{res.rank} {res.name}</h1>
                                     </div>
                                     <div className='mt-3'>
-                                        <div className='flex'>
+                                        <div className='flex flex-col gap-4'>
                                             {/* If user is in camp won't show the date */}
                                             <div className={res.status.status == 'In Camp' ?
-                                                'px-3 mr-3 w-max flex gap-2 items-center uppercase rounded-md bg-[#66aa8c] text-white ' :
-                                                'px-3 mr-3 w-max flex gap-2 items-center uppercase rounded-md bg-[#f04141] text-white '
+                                                'px-3 py-1 mr-3 w-max flex gap-2 items-center uppercase rounded-md bg-[#66aa8c] text-white ' :
+                                                'px-3 py-1 mr-3 w-max flex gap-2 items-center uppercase rounded-md bg-[#e24a4a] text-white '
                                             }>
-                                                <span className="block text-sm font-bold">{res.status.status}</span>
+                                                <span className="block text-xs font-bold">{res.status.status}</span>
                                             </div>
 
                                             <span className={res.status.status == 'In Camp' ? 'hidden' : 'block'}>
-                                                <div className='flex px-2 py-1 justify-center rounded-md bg-[#4582]'>
+                                                <div className='flex px-2 py-3 justify-center rounded-md bg-[#4582]'>
                                                     <CalendarIcon className="mx-1 h-5 w-5 " />
-                                                    {formattedDateRange}
+                                                    <span className='text-md'>
+                                                        {formattedDateRange}
+                                                    </span>
                                                 </div>
                                             </span>
                                         </div>
                                     </div>
+                                    {/* <div className='my-3'>
+                                        <span >{res.status.comments}</span>
+                                    </div> */}
                                 </div>
 
                             </AccordionTrigger>

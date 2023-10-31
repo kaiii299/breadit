@@ -6,7 +6,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { cStatus } from "@/lib/constants";
 import { DatePickerWithRange } from "./Datepicker";
 
-
 import {
     Select,
     SelectContent,
@@ -18,8 +17,8 @@ import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import RichText from "./RichText";
 import useRichText from "./RichText";
+import { addDays } from "date-fns";
 
 type FormInputs = {
     id: string;
@@ -49,14 +48,21 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
     const {richTextComments, richTextrender} = useRichText(prevComments);
 
     // Get date
-    const {render, date} = DatePickerWithRange(statusProps.start_date, statusProps.end_date)
+    const {render: renderDatePicker, date} = DatePickerWithRange(statusProps.start_date, statusProps.end_date)
 
     const onSubmit: SubmitHandler<FormInputs> = (data) => {
 
         // Default values
         data.status = selectedOption;
-        data.start_date = date?.from
-        data.end_date = date?.to
+
+        // Reset to today's date if status is in camp
+        if(selectedOption == 'In Camp'){
+            data.start_date = new Date()
+            data.end_date = addDays(new Date(),1)
+        }else{
+            data.start_date = date?.from
+            data.end_date = date?.to
+        }
         data.comments = richTextComments
 
         // console.log(data);
@@ -124,7 +130,8 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
                     <div className="mt-3">
                         <label className="font-bold">Duration</label>
                         <div className="mt-3">
-                            {render}
+                            {/* Date Picker */}
+                            {renderDatePicker}
                         </div>
                     </div>
                 )}
