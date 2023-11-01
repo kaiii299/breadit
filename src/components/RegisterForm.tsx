@@ -11,8 +11,7 @@ import Loading from './Loading'
 import { useToast } from '@/hooks/use-toast'
 
 type Props = {
-    platoonTags: string[]
-    isLoadingTags: any
+    platoonTags: any
 }
 
 // name, email, pes, platoon, rank, included , regular, username, company, status
@@ -33,11 +32,9 @@ type FormInputs = {
     username?: string,
 }
 
-const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
+const RegisterForm = ({ platoonTags }: Props) => {
 
     // Get all Platoon
-
-
     const {
         register,
         handleSubmit,
@@ -102,7 +99,7 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
 
                 <div className="mb-4 md:mr-2 md:mb-0">
                     <label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white">
-                        Rank
+                        Rank*
                     </label>
                     {/* Dropdown */}
                     <select {...register('rank')} className="block w-1/5 text-sm font-medium transition duration-75 border border-gray-800 rounded-lg shadow-sm h-9 focus:border-blue-600 focus:ring-1 focus:ring-inset focus:ring-blue-600 bg-none" >
@@ -116,24 +113,22 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
                 </div>
 
                 <div className="mb-4">
-                    <label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" >
-                        Platoon
+                    <label className="block my-2 text-sm font-bold text-gray-700 dark:text-white" >
+                        Platoon*
                     </label>
 
-                    {isLoadingTags ? <Loading /> :
                         <select {...register('platoonId')} className="block w-1/5 text-sm font-medium transition duration-75 border border-gray-800 rounded-lg shadow-sm h-9 focus:border-blue-600 focus:ring-1 focus:ring-inset focus:ring-blue-600 bg-none" >
                             {platoonTags?.map((res: any, i: any) => {
                                 return (
                                     <option key={i} value={res.id}>{res.platoon}</option>
                                 )
                             })}
-                        </select>}
-
+                        </select>
                 </div>
 
                 <div className="mb-4 md:mr-2 md:mb-0">
                     <label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" >
-                        PES Status
+                        PES Status*
                     </label>
                     {/* Dropdown */}
                     <select {...register('pes')} className="block w-1/5 text-sm font-medium transition duration-75 border border-gray-800 rounded-lg shadow-sm h-9 focus:border-blue-600 focus:ring-1 focus:ring-inset focus:ring-blue-600 bg-none" >
@@ -160,7 +155,7 @@ const RegisterForm = ({ platoonTags, isLoadingTags }: Props) => {
 
             <div className="mb-4">
                 <label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white upper" >
-                    Name
+                    Name*
                 </label>
                 <input
                     className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 uppercase dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"

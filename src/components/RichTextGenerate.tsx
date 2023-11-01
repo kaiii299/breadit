@@ -5,32 +5,33 @@ import { convertToRaw,convertFromRaw, ContentState, EditorState } from 'draft-js
 import { draftToMarkdown } from 'markdown-draft-js';
 
 // Import Editor dynamically only do it for client and not ssr
-const Editor =dynamic(
+const Editor = dynamic(
     () => import ('react-draft-wysiwyg').then((module) => module.Editor),{
         ssr:false
     }
 )
 
+type Props = {
+    
+}
 
-const useRichText = (prevComment: string) => {
+const RichTextGenerate = ({}: Props) => {
 
-    const initialContentState = ContentState.createFromText(prevComment);
+    const initialContentState = ContentState.createFromText('HELLO WORLD');
 
     const [editorState, setEditorState] = useState(EditorState.createWithContent(initialContentState));
 
+
     const onEditorStateChange = (editorState: any) =>{
         setEditorState(editorState);
-        
     };
     
     // New Text
     const richTextComments = editorState && draftToMarkdown(convertToRaw(editorState.getCurrentContent()))
     
 
-    return {
-        richTextComments,
-        richTextrender:(
-            <div className='bg-[#f8f9FA] min-h-full pb-16'>
+    return (
+            <div className='bg-[#f8f9FA] w-full min-h-full pb-20'>
                 <Editor 
                 editorState={editorState}
                 onEditorStateChange={onEditorStateChange}
@@ -40,7 +41,6 @@ const useRichText = (prevComment: string) => {
                 />
             </div>
         )
-    }
 }
 
-export default useRichText
+export default RichTextGenerate

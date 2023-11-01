@@ -17,7 +17,7 @@ import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import useRichText from "./RichText";
+import useRichText from "./RichTextStatus";
 import { addDays } from "date-fns";
 
 type FormInputs = {
