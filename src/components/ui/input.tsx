@@ -1,25 +1,36 @@
-import * as React from "react"
+import React from 'react'
 
-import { cn } from "@/lib/utils"
+export default function useInput(placeholder: string, spanClassName?: string, inputClassName?: string) {
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  // Input
+  const [inputValue, setInputValue] = React.useState('');
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
-    return (
-      <input
-        type={type}
-        className={cn(
-          "flex h-10 w-full rounded-md border  bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
+  // Input style
+  let [ogInputClassname, setOgInputClassName] = React.useState(inputClassName)
+  
+  // Span style
+  let [ogSpanClassName, setOgSpanClassName] = React.useState(spanClassName)
+
+  const handleInputChange = (e: any) => {
+    setInputValue(e.target.value);
+  }
+  
+
+  // If classname value are empty set this as original value
+  if(inputClassName == undefined || spanClassName == undefined || inputClassName == '' || spanClassName == '' ){
+    ogInputClassname = 'w-[70vw] h-[6vh] lg:h-[5vh] px-5 py-2 my-4 text-sm leading-tight rounded-md text-gray-700 uppercase dark:text-white border  shadow appearance-none focus:outline-none focus:shadow-outline placeholder-gray-300 placeholder-opacity-0 transition duration-200'
+    ogSpanClassName = 'block mb-2 text-xl text-gray-300 dark:text-white upper text-opacity-8 absolute left-1 top-6 px-1 transition duration-200 input-text'
+  }
+
+  return {
+    inputValue,
+    inputRender: (
+    <div className=" flex justify-start items-center">
+      <label className='relative cursor-pointer'>
+        <input value={inputValue} onChange={handleInputChange} type="text" placeholder="Input" className={ogInputClassname} />
+        <span className={ogSpanClassName}>{placeholder}</span>
+      </label>
+    </div>
     )
   }
-)
-Input.displayName = "Input"
-
-export { Input }
+}

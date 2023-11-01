@@ -1,5 +1,4 @@
 import React from 'react'
-import { Input } from './ui/input'
 import { Icons } from './Icons'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/Dropdown-menu'
 import Link from 'next/link'
@@ -10,9 +9,9 @@ type Props = {}
 
 const TableNav = (props: Props) => {
     return (
-        <div className='flex justify-between top-0 inset-x-0 h-fit z-[10] py-2 '>
+        <div className='flex justify-between top-0 inset-x-0 h-fit z-[10] py-4 '>
             <div className='flex'>
-                <Input type="text" placeholder="Search..." className="input mr-4 input-ghost input-bordered w-1/2 max-w-xs" />
+                {/* <Input type="text" placeholder="Search..." className="input mr-4 input-ghost input-bordered w-1/2 max-w-xs" /> */}
                 <ParadeDialog />
             </div>
             <div>
