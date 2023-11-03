@@ -72,6 +72,6 @@
 
 input[type="text"]:focus ~ .input-text,
 input[type="text"]:not(:placeholder-shown) ~ .input-text{
-  @apply transform -translate-y-8 -translate-x-2 scale-75;
+  @apply transform -translate-y-8 -translate-x-4 scale-75;
 }
 

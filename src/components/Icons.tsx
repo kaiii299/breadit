@@ -1,4 +1,4 @@
-import { LucideProps, MessageSquare, User, MoreVertical  } from "lucide-react";
+import { LucideProps, MessageSquare, User, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import logo from "public/icon-full.png";
 
@@ -24,6 +24,23 @@ export const Icons = {
         fill="#EA4335"
       />
       <path d="M1 1h22v22H1z" fill="none" />
+    </svg>
+  ),
+  search: (props: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      className="lucide lucide-search"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
     </svg>
   ),
   DropDownDotsVertical: MoreVertical,

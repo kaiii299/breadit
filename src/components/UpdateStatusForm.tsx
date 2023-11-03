@@ -19,6 +19,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import useRichText from "./RichTextStatus";
 import { addDays } from "date-fns";
+import { Button } from "./ui/Button";
 
 type FormInputs = {
     id: string;
@@ -142,7 +143,7 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
             </div>
 
             <div>
-                <button className="bg-zinc-900 text-zinc-100 hover:bg-zinc-800 px-4 py-3 w-1/4 active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors " type="submit">Save</button>
+                <Button>Save</Button>
             </div>
         </form>
     );

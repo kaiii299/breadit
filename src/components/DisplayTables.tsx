@@ -1,3 +1,4 @@
+
 import React from 'react'
 import TableNav from './TableNav'
 import { TableHeader, TableRow, TableBody, TableCell, Table, TableCaption, TableHead } from './ui/table'
@@ -10,13 +11,12 @@ type Props = {
 }
 
 
-
 const DisplayTables = ({ users }: Props) => {
-
+    
     return (
         <div>
             <Table>
-                <TableCaption>Parade State for Bravo.</TableCaption>
+                <TableCaption>Parade state for Bravo</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead>

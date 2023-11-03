@@ -8,14 +8,14 @@ type Props = {
     users: string[]
 }
 
-const AccoridonEdit = ({users}: Props) => {
+const AccoridonEdit = ({ users }: Props) => {
     return (
         <Accordion type="single" collapsible className="w-full">
             {
                 users.map((res: any) => {
 
                     // Format date that users is not in camp
-                    
+
                     const start_date = res.status.start_date
                     const end_date = res.status.end_date
 

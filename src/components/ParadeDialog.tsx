@@ -8,8 +8,6 @@ import {
     DialogFooter,
     DialogHeader,
     DialogOverlay,
-    DialogPortal,
-    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 import RichTextGenerate from './RichTextGenerate'
@@ -20,7 +18,7 @@ const ParadeDialog = (props: Props) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Generate</Button>
+                <Button variant="default" className='text-center'>Parade State</Button>
             </DialogTrigger>
             <DialogOverlay className='fixed inset-0 grid justify-center max-h-[300px] overflow-auto DialogOverlay'>
                 <DialogContent className="w-screen min-w-[300px] bg-white p-30 py-10 px-1 rounded-[4px]" onPointerDownOutside={(e) => e.preventDefault()}>
