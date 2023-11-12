@@ -148,7 +148,7 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
                 </div>
             ): (<div></div>)}
             <div className="flex flex-col py-3">
-                <label className="font-bold my-3">Long Term Status e.g. excuse Helmet</label>
+                <label className="font-bold my-3">Long Term Status e.g. Excuse RMJ</label>
                 {richTextrender}
             </div>
 

@@ -1,4 +1,4 @@
-import { ContentState, EditorState, convertFromHTML } from 'draft-js';
+import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -11,12 +11,8 @@ const Editor = dynamic(
 }
 )
 
-type Props = {
-    usersProps: any
-    platoonProps: any
-}
 
-const RichTextGenerate = ({ usersProps, platoonProps }: Props) => {
+export default function useRichTextGenerate(usersProps: any, platoonProps: any){
 
     const { formatedParadeState } = useFormatParadeState(usersProps, platoonProps)
 
@@ -25,8 +21,10 @@ const RichTextGenerate = ({ usersProps, platoonProps }: Props) => {
 
 
     const initialContentState = ContentState.createFromBlockArray(readableString);
+    
+    const rawContentState = convertToRaw(initialContentState)
 
-    // console.log(paradeStateItems);
+    const plainText = rawContentState.blocks.map(block => block.text).join('\n')
 
 
     const [editorState, setEditorState] = useState(EditorState.createWithContent(initialContentState));
@@ -36,8 +34,10 @@ const RichTextGenerate = ({ usersProps, platoonProps }: Props) => {
         setEditorState(editorState);
     };
 
-    return (
-        <div className='bg-[#f8f9FA] w-full min-h-full pb-20'>
+    return {
+        plainText,
+        editorRender: (
+            <div className='bg-[#f8f9FA] w-full min-h-full pb-20'>
             <Editor
                 editorState={editorState}
                 onEditorStateChange={onEditorStateChange}
@@ -54,7 +54,6 @@ const RichTextGenerate = ({ usersProps, platoonProps }: Props) => {
                 }}
             />
         </div>
-    )
+        )
+    }
 }
-
-export default RichTextGenerate

@@ -13,13 +13,18 @@ import {
 } from "@/components/ui/dialog"
 import RichTextGenerate from './RichTextGenerate'
 import { Copy, Send } from "lucide-react"
+import WhatsAppShare from './WhatsAppShare'
+import useRichTextGenerate from './RichTextGenerate'
 
 type Props = {
     usersProps: any
     platoonProps: any
 }
 
+
 const ParadeDialog = ({ usersProps, platoonProps }: Props) => {
+    
+    const {editorRender,plainText} = useRichTextGenerate(usersProps, platoonProps)
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -33,21 +38,12 @@ const ParadeDialog = ({ usersProps, platoonProps }: Props) => {
                     </DialogDescription>
                 </DialogHeader>
                 <div className='min-w-[300px] bg-white p-30 py-10 px-1 rounded-[4px] overflow-y-scroll max-h-screen '>
-                    <RichTextGenerate usersProps={usersProps} platoonProps={platoonProps}/>
+                    {editorRender}
                 </div>
                 <DialogFooter>
-                    <DialogClose>
                         <div className='flex justify-end gap-3 mr-2'>
-                            {/* <Button type="submit" className="px-3">
-                                Copy
-                                <Copy className="h-4 w-4 ml-2" />
-                            </Button> */}
-                            <Button type="submit">
-                                Send
-                                <Send className='h-4 w-4 ml-2' />
-                            </Button>
+                            <WhatsAppShare message={plainText}/>
                         </div>
-                    </DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
