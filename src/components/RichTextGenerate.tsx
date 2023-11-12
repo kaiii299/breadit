@@ -1,46 +1,60 @@
+import { ContentState, EditorState, convertFromHTML } from 'draft-js';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react'
+import { useState } from 'react';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertToRaw,convertFromRaw, ContentState, EditorState } from 'draft-js';
-import { draftToMarkdown } from 'markdown-draft-js';
+import { useFormatParadeState } from './FormatParadeState';
 
 // Import Editor dynamically only do it for client and not ssr
 const Editor = dynamic(
-    () => import ('react-draft-wysiwyg').then((module) => module.Editor),{
-        ssr:false
-    }
+    () => import('react-draft-wysiwyg').then((module) => module.Editor), {
+    ssr: false
+}
 )
 
 type Props = {
-    
+    usersProps: any
+    platoonProps: any
 }
 
-const RichTextGenerate = ({}: Props) => {
+const RichTextGenerate = ({ usersProps, platoonProps }: Props) => {
 
-    const initialContentState = ContentState.createFromText('HELLO WORLD');
+    const { formatedParadeState } = useFormatParadeState(usersProps, platoonProps)
+
+    // Make html string into readable string, replace commas and repalce br with Unicode character for "Zero Width Non-Joiner
+    const readableString: any = convertFromHTML(formatedParadeState.replace(/,/g, '').replace(/#/g, '\u200C').replace('<br/>', '\u200C'));
+
+
+    const initialContentState = ContentState.createFromBlockArray(readableString);
+
+    // console.log(paradeStateItems);
+
 
     const [editorState, setEditorState] = useState(EditorState.createWithContent(initialContentState));
 
 
-    const onEditorStateChange = (editorState: any) =>{
+    const onEditorStateChange = (editorState: any) => {
         setEditorState(editorState);
     };
-    
-    // New Text
-    const richTextComments = editorState && draftToMarkdown(convertToRaw(editorState.getCurrentContent()))
-    
 
     return (
-            <div className='bg-[#f8f9FA] w-full min-h-full pb-20'>
-                <Editor 
+        <div className='bg-[#f8f9FA] w-full min-h-full pb-20'>
+            <Editor
                 editorState={editorState}
                 onEditorStateChange={onEditorStateChange}
                 toolbarClassName='flex sticky top-0 z-50 justify-center mx-auto'
                 editorClassName='mt-3 p-5 bg-white shadow-lg max-w-5xl mx-auto border'
                 defaultEditorState={editorState}
-                />
-            </div>
-        )
+                toolbar={{
+                    options: ['history'],
+                    inline: { inDropdown: true },
+                    list: { inDropdown: true },
+                    textAlign: { inDropdown: true },
+                    link: { inDropdown: true },
+                    history: { inDropdown: true },
+                }}
+            />
+        </div>
+    )
 }
 
 export default RichTextGenerate

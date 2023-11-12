@@ -42,7 +42,7 @@ const RegisterForm = ({ platoonTags }: Props) => {
 
     // Get Input function
 
-    const { inputRender, inputValue } = useInput('Name');
+    const { inputRender, inputValue } = useInput('Name*');
 
     const onSubmit: SubmitHandler<FormInputs> = (data) => {
 
@@ -152,8 +152,8 @@ const RegisterForm = ({ platoonTags }: Props) => {
             </div>
 
 
-            <div className="mb-6 text-center flex justify-center">
-                <Button className='w-1/4' isLoading={isLoading} >Add user</Button>
+            <div className="mb-6 text-center flex justify-start md:justify-center lg:justify-center">
+                <Button className='w-1/2' isLoading={isLoading} >Add user</Button>
                 <Button className='md:w-1/4 lg:w-1/2 ml-5' variant={'subtle'}><a href='/'>Cancel</a></Button>
             </div>
 

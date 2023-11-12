@@ -1,11 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
-import { updateStatusValidators } from "@/lib/validators/users";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { cStatus } from "@/lib/constants";
+import { updateStatusValidators } from "@/lib/validators/users";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { DatePickerWithRange } from "./Datepicker";
 
+import { toast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { addDays } from "date-fns";
+import { useRouter } from "next/navigation";
+import useRichText from "./RichTextStatus";
+import { Button } from "./ui/Button";
+import useInput from "./ui/input";
 import {
     Select,
     SelectContent,
@@ -13,13 +21,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "./ui/select";
-import { toast } from "@/hooks/use-toast";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import useRichText from "./RichTextStatus";
-import { addDays } from "date-fns";
-import { Button } from "./ui/Button";
 
 type FormInputs = {
     id: string;
@@ -27,6 +28,7 @@ type FormInputs = {
     start_date: Date | undefined;
     end_date: Date | undefined;
     comments?: string;
+    other_comments? : string
 };
 
 type Props = {
@@ -38,6 +40,7 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
     
     const status = statusProps.status;
     const prevComments = statusProps.comments;
+    const other_comments = statusProps.other_comments
     
     // Drop down option
     const [selectedOption, setSelectedOption] = useState(status);
@@ -50,6 +53,8 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
 
     // Get date
     const {render: renderDatePicker, date} = DatePickerWithRange(statusProps.start_date, statusProps.end_date)
+
+    let {inputRender, inputValue} = useInput("Reason", other_comments)
 
     const onSubmit: SubmitHandler<FormInputs> = (data) => {
 
@@ -66,7 +71,8 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
         }
         data.comments = richTextComments
 
-        // console.log(data);
+        data.other_comments = inputValue;
+
         
         updateUser(data)
     };
@@ -93,7 +99,7 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
         onSuccess: () => {
 
             toast({
-                title: 'Status Updated 🐊',
+                title: `Status Updated 🐊`,
                 description: '',
                 variant: 'default',
             })
@@ -102,7 +108,6 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
             router.refresh()
         }
     })
-
 
     return (
         <form onSubmit={(e) => handleSubmit(onSubmit)(e)}>
@@ -137,8 +142,13 @@ const UpdateStatus = ({ statusProps, idProps }: Props) => {
                     </div>
                 )}
             </div>
+            {selectedOption == 'Others' || selectedOption == 'On Course'? (
+                <div className="mt-3">
+                    {inputRender}
+                </div>
+            ): (<div></div>)}
             <div className="flex flex-col py-3">
-                <label className="font-bold my-3">Notes</label>
+                <label className="font-bold my-3">Long Term Status e.g. excuse Helmet</label>
                 {richTextrender}
             </div>
 

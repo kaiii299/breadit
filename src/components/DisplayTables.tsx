@@ -8,10 +8,11 @@ import AccoridonEdit from './AccoridonEdit'
 type Props = {
 
     users: any
+    platoon: any
 }
 
 
-const DisplayTables = ({ users }: Props) => {
+const DisplayTables = ({ users, platoon }: Props) => {
     
     return (
         <div>
@@ -20,7 +21,7 @@ const DisplayTables = ({ users }: Props) => {
                 <TableHeader>
                     <TableRow>
                         <TableHead>
-                            <TableNav />
+                            <TableNav users={users} platoon={platoon}/>
                         </TableHead>
                     </TableRow>
                 </TableHeader>

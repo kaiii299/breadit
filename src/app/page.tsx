@@ -59,10 +59,24 @@ const Home = async ({ searchParams } : { [key: string]: string | undefined}) => 
   }
 
   const users = await getUsers();
+  
+  
+  async function getPlatoons() {
+    const res = await db.platoons.findMany({
+      select:{
+        platoon: true
+      }
+    });
+    
+    return res
+  }
+  
+  const platoons = await getPlatoons()
+  
 
   return (
     <>
-      <DisplayTables users={users} />
+      <DisplayTables users={users} platoon={platoons} />
     </>
   );
 }

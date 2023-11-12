@@ -2,7 +2,7 @@
     -webkit-animation: linear infinite;
     -webkit-animation-name: run;
     -webkit-animation-duration: 5s;
-    animation: run 10s both infinite;
+    animation: run 20s both infinite;
   }
 
 @-webkit-keyframes run {

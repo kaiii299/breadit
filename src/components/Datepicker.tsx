@@ -31,7 +31,7 @@ export function DatePickerWithRange(start_date: string, end_date: string) {
       to: new Date(end_date),
     };
 
-    console.log(initialDateObject);
+    // console.log(initialDateObject);
 
 
     // Check if both start date and end date are valid; if not, set them to current dates

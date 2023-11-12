@@ -1,44 +1,56 @@
-'use client'
-import React from 'react'
-import { Icons } from './Icons'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/Dropdown-menu'
-import Link from 'next/link'
-import { Button, buttonVariants } from './ui/Button'
-import ParadeDialog from './ParadeDialog'
-import useInput from './ui/input'
-import Search from './search'
-import useSearch from './search'
-type Props = {}
+"use client";
+import Link from "next/link";
+import { Icons } from "./Icons";
+import ParadeDialog from "./ParadeDialog";
+import Search from "./search";
+import { buttonVariants } from "./ui/Button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "./ui/Dropdown-menu";
 
-const TableNav = (props: Props) => {
+type Props = {
+    users: any;
+    platoon: any
+};
 
-
+const TableNav = ({ users, platoon }: Props) => {
     return (
-        <div className='flex justify-between top-0 inset-x-0 h-fit z-[10] py-4 '>
-            <div className='flex gap-3'>
-                <Search/>
-                <ParadeDialog />
+        <div className="flex justify-between top-0 inset-x-0 h-fit z-[10] py-4 ">
+            <div className="flex gap-3">
+                <Search />
+                <ParadeDialog usersProps={users} platoonProps={platoon} />
             </div>
             <div>
                 <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        <Icons.DropDownDotsVertical className='mt-2' />
+                    <DropdownMenuTrigger asChild>
+                        <Icons.DropDownDotsVertical className="mt-2  cursor-pointer" />
                     </DropdownMenuTrigger>
 
-                    <DropdownMenuContent className='bg-white align-end'>
+                    <DropdownMenuContent className="bg-white align-end">
+                        <DropdownMenuLabel >Options</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <Link href='/sign-up' className={buttonVariants({ variant: 'ghost' })}>
+                            <Link
+                                href="/sign-up"
+                                className={buttonVariants({ variant: "ghost" })}>
                                 Create new user
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator />
+                        {/* <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                        </DropdownMenuItem>
+                            <Dialog>
+                            </Dialog>
+                        </DropdownMenuItem> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default TableNav
+export default TableNav;

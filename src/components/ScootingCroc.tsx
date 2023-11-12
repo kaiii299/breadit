@@ -5,7 +5,7 @@ import scootingCroc from '../../public/ScootingCroc.json'
 
 type Props = {}
 
-const Loading = (props: Props) => {
+const ScootingCroc = (props: Props) => {
     return (
         <div className='w-1/5'>
             <Lottie animationData={scootingCroc}></Lottie>
@@ -13,4 +13,4 @@ const Loading = (props: Props) => {
     )
 }
 
-export default Loading
+export default ScootingCroc

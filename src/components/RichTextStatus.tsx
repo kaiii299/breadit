@@ -36,6 +36,14 @@ const useRichText = (prevComment: string) => {
                 toolbarClassName='flex sticky top-0 z-50 justify-center mx-auto'
                 editorClassName='mt-3 p-5 bg-white shadow-lg max-w-5xl mx-auto border'
                 defaultEditorState={editorState}
+                toolbar={{
+                    options: ['history'],
+                    inline: { inDropdown: true },
+                    list: { inDropdown: true },
+                    textAlign: { inDropdown: true },
+                    link: { inDropdown: true },
+                    history: { inDropdown: true },
+                }}
                 />
             </div>
         )

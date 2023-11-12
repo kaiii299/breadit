@@ -1,8 +1,7 @@
-import React from 'react'
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './ui/accordion'
-import UpdateStatus from './UpdateStatusForm'
-import { CalendarIcon } from 'lucide-react'
 import { format, isValid, parseISO } from "date-fns"
+import { CalendarIcon } from 'lucide-react'
+import UpdateStatus from './UpdateStatusForm'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion'
 
 type Props = {
     users: string[]
@@ -59,7 +58,7 @@ const AccoridonEdit = ({ users }: Props) => {
                                                 <span className="block text-xs font-bold">{res.status.status}</span>
                                             </div>
 
-                                            <span className={res.status.status == 'In Camp' ? 'hidden' : 'block'}>
+                                            <span className={res.status.status == 'In Camp' ? 'hidden ' : 'block'}>
                                                 <div className='flex px-2 py-3 justify-center rounded-md bg-[#4582]'>
                                                     <CalendarIcon className="mx-1 h-5 w-5 " />
                                                     <span className='text-md'>
@@ -69,9 +68,13 @@ const AccoridonEdit = ({ users }: Props) => {
                                             </span>
                                         </div>
                                     </div>
-                                    {/* <div className='my-3'>
-                                        <span >{res.status.comments}</span>
-                                    </div> */}
+                                    <div className='my-3'>
+                                        {/* <div className="releative flex items-center">
+                                            <div className="absolute text-start top-0 left-0 right-0 bottom-0">
+                                                {res.status.comments !== '' ? <Notes comments={res.status.comments} /> : <div></div>}
+                                            </div>
+                                        </div> */}
+                                    </div>
                                 </div>
 
                             </AccordionTrigger>

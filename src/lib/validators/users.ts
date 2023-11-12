@@ -1,5 +1,41 @@
 import {z} from 'zod'
 
+export interface PersonnelByPlatoonAndStatus {
+    platoon: string;
+    personnel: iPerson[];
+}
+
+export interface PersonnelByLabelAndStatus {
+    label: string;
+    personnel: iPerson[];
+}
+
+export interface iPerson {
+    rank: string;
+    name: string;
+    status: any;
+    platoon: {
+        platoon: string
+    };
+}
+
+
+export interface iUsers {
+    email: string,
+    name: string,
+    rank: string,
+    pes: string,
+    platoon: any,
+    included: boolean,
+    username: string,
+    status: JSON,
+}
+
+export interface iPlatoon{
+    id: string,
+    platoon: string
+}
+
 export const createUserValidators = z.object({
     email: z.string(),
     name: z.string().min(3),
@@ -9,7 +45,10 @@ export const createUserValidators = z.object({
     included: z.boolean(),
     username:z.string(),
     status: z.any(),
+    platoon: z.any(),
 })
+
+export type createUserValidators = z.infer<typeof createUserValidators>
 
 
 export const updateStatusValidators = z.object({
@@ -18,6 +57,7 @@ export const updateStatusValidators = z.object({
     comments: z.string(),
     start_date: z.string(),
     end_date: z.string(),
+    other_comments: z.string(),
 })
 
 export type updateStatusValidators = z.infer<typeof updateStatusValidators>

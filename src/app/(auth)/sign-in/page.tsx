@@ -1,8 +1,4 @@
-import { buttonVariants } from '@/components/ui/Button'
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
 import React from 'react'
-import { ChevronLeft } from 'lucide-react'
 import SignIn from '@/components/SignIn'
 
 type Props = {}

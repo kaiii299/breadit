@@ -9,7 +9,7 @@ type Props = {}
 
 const FlyingCroc = (props: Props) => {
   return (
-    <div className=' w-[25%] lg:w-[8%] md:w-[5%] absolute h-0 top-[-70%] z-[-100] croc'>
+    <div className=' w-[25%] lg:w-[8%] md:w-[5%] absolute h-0 top-[-56%] lg:top-[-50%] z-[-100] croc'>
         <Lottie animationData={flyingCroc}></Lottie>
     </div>
   )
